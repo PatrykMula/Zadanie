@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Zadanie.Models.Dane>
+@{
+                /**/
+
+                ViewBag.Title = "Index";
+                Layout = "~/Views/Shared/_Zadanie.cshtml";
+}
+
+<h2 class="text-center">To Do - lista zadań</h2>
+<div class="text-right">
+    <button type="button" class="btn">Dodaj</button>
+    <button type="button" class="btn">Edycja</button>
+    <div class="dropdown">
+
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            Eksportuj Do
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Link 1</a>
+
+        </div>
+    </div>
+
+</div>
+<div class="text-right">
+    <button type="button" class="btn">Widok lista</button>
+    <button type="button" class="btn">Widok kafelkowy</button>
+</div>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        @*bootstrap przy rozdzielczosci powyzej 1200px ustawia body container na 1170...
+          dlatego obecnie na sztywno jest ustawione 230px, aby miescilo sie maksymalnie 5 elementow na stronie
+        do zrobienia:
+            trzeba wywalic ten styl do jakiejs klasy
+            trzeba dodac klase z marginesem do kafelkow (patrz mb-5 w bootstrapie 4.0)
+        *@
+        <div class="col-xs-2 mb-50" style="min-width:230px">
+            <div class="card table-bordered">
+                <div class="card-body padding-10">
+                    <div class="card-text ">
+                        
+                        <div class=" table-bordered blue inline-block padding-2 mb-10">@Html.DisplayFor(modelItem => item.priorytet)</div>
+                        <div class="table-bordered yellow inline-block padding-2 pull-right ">@Html.DisplayFor(modelItem => item.status)</div>
+                       
+                        <div class="text-center mb-10 " >
+                          <strong>Czynność</strong><br />
+                           @Html.DisplayFor(modelItem => item.czynnosc)
+                        </div>
+                        <div class="text-center mb-10">
+                            <strong>Temat</strong><br />
+                           
+                             @Html.DisplayFor(modelItem => item.temat)
+                        </div>
+                        <div class="table-bordered mb-10 inline-block padding-2">
+                            Data: @Convert.ToDateTime(item.data_rozpoczecia).ToString("dd/MM")-@Convert.ToDateTime(item.data_zakonczenia).ToString("dd/MM")
+                        </div>
+                        <div class="table-bordered inline-block padding-2 mb-10">
+                            @Html.DisplayFor(modelItem => item.procent_zakonczenia)%
+                        </div>
+
+                    </div>
+                    <div class="text-center">
+                        <a href="#" class="btn btn-primary ">Podgląd</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+@*  drop down wyskakuje jako absolute do diva... poszukaj, aby absolute wyskakiwal do polozenia elementu button *@
+<div class="dropdown text-right">
+    Elementów na stronie:
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        10
+    </button>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">10</a>
+
+    </div>
+</div>
+
+<div class="text-center">
+    <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
+        <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+        <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
+    </ul>
+</div>
+

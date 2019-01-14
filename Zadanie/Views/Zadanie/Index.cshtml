@@ -1,0 +1,120 @@
+﻿@model IEnumerable<Zadanie.Models.Dane>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Zadanie.cshtml";
+}
+
+<h2 class="text-center">To Do - lista zadań</h2>
+<div class="text-right">
+    <button type="button" class="btn">Dodaj</button>
+    <button type="button" class="btn">Edycja</button>
+    <div class="dropdown">
+
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            Eksportuj Do
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Link 1</a>
+
+        </div>
+    </div>
+
+</div>
+<div class="text-right">
+    <button type="button" class="btn">Widok lista</button>
+    <button type="button" class="btn">Widok kafelkowy</button>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.temat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.czynnosc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.data_rozpoczecia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.data_zakonczenia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.priorytet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.procent_zakonczenia)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>
+                @Html.DisplayFor(modelItem => item.temat)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.czynnosc)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.data_rozpoczecia)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.data_zakonczenia)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.status)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.priorytet)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.procent_zakonczenia)
+            </th>
+            <th>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Checkbox</label>
+                </div>
+            </th>
+            <th>
+                <button type="button" class="btn">Szczegóły</button>
+            </th>
+            <th>
+                <button type="button" class="btn">Przesuń</button>
+            </th>
+            <th>
+                <button type="button" class="btn">X</button>
+            </th>
+
+
+        </tr>
+    }
+
+
+
+</table>
+@*  drop down wyskakuje jako absolute do diva... poszukaj, aby absolute wyskakiwal do polozenia elementu button *@
+<div class="dropdown text-right">
+    Elementów na stronie:
+    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        10
+    </button>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">10</a>
+
+    </div>
+</div>
+
+<div class="text-center">
+    <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
+        <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
+        <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
+    </ul>
+</div>
+
