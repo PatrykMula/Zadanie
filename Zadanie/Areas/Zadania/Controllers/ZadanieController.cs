@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Zadanie.Models;
 
-namespace Zadanie.Controllers
+namespace Zadanie.Areas.Zadania.Controllers
 {
     public class ZadanieController : Controller
     {
