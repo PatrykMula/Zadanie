@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "_BodyHeader";
+}
+
+<div class="text-right">
+
+    <button type="button" class="btn" >@Html.ActionLink("Dodaj", "Create")</button>
+    <button type="button" class="btn">@Html.ActionLink("Edycja", "Edit")</button>
+    <div class="dropdown" style="max-width: 200px">
+        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            Eksportuj Do
+        </button>
+        <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Link 1</a>
+        </div>
+    </div>
+</div>
+<div class="text-right mb-10">
+    <button type="button" class="btn">@Html.ActionLink("Widok Lista", "Index")</button>
+    <button type="button" class="btn">@Html.ActionLink("Widok Kafelkowy", "IndexTiles")</button>
+</div>

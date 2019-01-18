@@ -196,7 +196,12 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Zadanie.cshtml" />
     <Content Include="Views\Zadanie\Index.cshtml" />
-    <Content Include="Views\Zadanie\IndexKafelki.cshtml" />
+    <Content Include="Views\Zadanie\IndexTiles.cshtml" />
+    <Content Include="Views\Zadanie\_BodyHeader.cshtml" />
+    <Content Include="Views\Zadanie\Edit.cshtml" />
+    <Content Include="Views\Zadanie\Details.cshtml" />
+    <Content Include="Views\Zadanie\Create.cshtml" />
+    <Content Include="Views\Zadanie\_Pagination.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
