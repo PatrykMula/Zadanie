@@ -8,7 +8,8 @@ using Zadanie.Models;
 namespace Zadanie.Areas.Zadania.Controllers
 {
     public class ZadanieController : Controller
-    {
+    {   
+        //jak doczytam o obsludze Serwisów, to prawdopodobnie przerzuce do do nich i potem dodam obsluge :D
         public static List<Dane> taskList = new List<Dane>{
                             new Dane() { id= 1,
                                          temat = "temat1",
@@ -136,18 +137,21 @@ namespace Zadanie.Areas.Zadania.Controllers
         {
             return View(taskList);
         }
-        public ActionResult Details()
+
+
+        public ActionResult Details(int? id)
         {
-            return PartialView(oneTask) ;
+            //znajdz zadanie o okreslonym id
+            Dane task = taskList.Find(x => x.id==id);
+            return PartialView(task) ;
                 
         }
 
         public ActionResult Create()
         {
-
-
             return PartialView();
         }
+
         [HttpPost]
         public ActionResult Create(Dane dane)
         {
@@ -155,10 +159,11 @@ namespace Zadanie.Areas.Zadania.Controllers
             taskList.Add(dane);
             return Redirect("Index");
         }
-        public ActionResult Edit()
-        {
-            return PartialView(oneTask);
-        }
+
+
+
+
+
 
         public ActionResult test1()
         {

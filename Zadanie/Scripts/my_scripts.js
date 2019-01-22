@@ -8,6 +8,15 @@ $("#lnkCreate").click(function (e) {
 
 });
 
+$(document).ready(function () {
+    $("#details-links button [href]").click(function (a) {
+        a.preventDefault();
+
+        url = $(this).attr('href');
+
+        $("#dialog-edit").dialog('open');
+    });
+});
 
 
 $("#dialog-edit").dialog({

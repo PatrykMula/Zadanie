@@ -61,15 +61,15 @@
                     <label class="form-check-label" for="exampleCheck1">Checkbox</label>
                 </div>
             </th>
-            <th>
-                <button type="button" class="btn">@Html.ActionLink("Szczegóły", "Details")</button>
+            <th id="details-links">
+                <button type="button">@Html.ActionLink("Szczegóły", "Details/" + item.id, null, new {  })</button>
 
             </th>
             <th>
-                <button type="button" class="btn">Przesuń</button>
+                <button type="button">Przesuń</button>
             </th>
             <th>
-                <button type="button" class="btn">X</button>
+                <button type="button">X</button>
             </th>
 
         </tr>
