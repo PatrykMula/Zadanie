@@ -41,7 +41,7 @@ namespace Zadanie.Areas.Zadania.Controllers
                                          opis = "jakis tam opis",
 
                                          status = 1,
-                                         priorytet = 2,
+                                         priorytet = 1,
                                          procent_zakonczenia = 10,
 
                                          data_rozpoczecia = DateTime.Now,
@@ -65,7 +65,7 @@ namespace Zadanie.Areas.Zadania.Controllers
                                          opis = "jakis tam opis",
 
                                          status = 1,
-                                         priorytet = 2,
+                                         priorytet = 1,
                                          procent_zakonczenia = 10,
 
                                          data_rozpoczecia = DateTime.Now,
@@ -135,7 +135,8 @@ namespace Zadanie.Areas.Zadania.Controllers
         }
         public ActionResult IndexTiles()
         {
-            return View(taskList);
+            var orderedList = taskList.OrderBy(a => a.priorytet);
+            return View(orderedList);
         }
 
 
@@ -155,13 +156,28 @@ namespace Zadanie.Areas.Zadania.Controllers
         [HttpPost]
         public ActionResult Create(Dane dane)
         {
-
+            int id = (taskList.Count + 1);//dodanie jako kolejny element 
+            dane.id = id;
             taskList.Add(dane);
             return Redirect("Index");
         }
 
 
+        public ActionResult Edit(int? id)
+        {
+            //znajdz zadanie o okreslonym id
+            Dane task = taskList.Find(x => x.id == id);
+            return PartialView(task);
+        }
 
+        [HttpPost]
+        public ActionResult Edit(Dane dane)
+        {
+
+            var index = taskList.FindIndex(c => c.id == dane.id);
+            taskList[index] = dane;
+            return Redirect("../Index");
+        }
 
 
 

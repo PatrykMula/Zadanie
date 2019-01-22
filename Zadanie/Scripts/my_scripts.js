@@ -8,6 +8,24 @@ $("#lnkCreate").click(function (e) {
 
 });
 
+$("#lnkEdit").click(function (e) {
+    e.preventDefault();
+    var input = $("div input:checked").length;
+    if (input == 0) {
+        alert('zaznacz checboxa, ktorego chcesz edytowac');
+    }
+    else if (input > 1) {
+        alert("maksymalnie mozesz edytowac jedno pole");
+    }
+    else {
+         
+        url = $(this).attr('href');
+        url += "/" + $("input:checked").val();
+        $("#dialog-edit").dialog('open');
+    }
+
+});
+
 $(document).ready(function () {
     $("#details-links button [href]").click(function (a) {
         a.preventDefault();
@@ -17,6 +35,7 @@ $(document).ready(function () {
         $("#dialog-edit").dialog('open');
     });
 });
+
 
 
 $("#dialog-edit").dialog({

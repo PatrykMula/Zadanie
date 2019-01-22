@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -8,8 +9,11 @@ namespace Zadanie.Models
     public class Dane
     {
         public int id { get; set; }
+        [StringLength(255)]
         public string temat { get; set; }
+        [StringLength(255)]
         public string czynnosc { get; set; }
+        [StringLength(255)]
         public string opis { get; set; }
 
         [System.ComponentModel.DataAnnotations.DisplayFormat(DataFormatString = "{0}")]
