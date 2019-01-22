@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Zadanie.Models.Dane>
+
+@{
+    ViewBag.Title = "test";
+    Layout = "~/Areas/Zadania/Views/Shared/_Zadanie.cshtml";
+}
+
+<h2>test</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.temat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.czynnosc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.opis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.priorytet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.procent_zakonczenia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.data_rozpoczecia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.data_zakonczenia)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.temat)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.czynnosc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.opis)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.priorytet)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.procent_zakonczenia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.data_rozpoczecia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.data_zakonczenia)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -5,6 +5,7 @@
 }
 <h2 class="text-center">To Do - lista zadań</h2>
 @Html.Partial("_BodyHeader")
+@Html.Partial("_Menu")
 <table class="table">
     <tr>
         <th>
@@ -62,7 +63,7 @@
             </th>
             <th>
                 <button type="button" class="btn">@Html.ActionLink("Szczegóły", "Details")</button>
-             
+
             </th>
             <th>
                 <button type="button" class="btn">Przesuń</button>

@@ -1,0 +1,8 @@
+[
+  {
+    "outputFileName": "Content/themes/base/jquery-ui.min.css",
+    "inputFiles": [
+      "Content/themes/base/jquery-ui.css"
+    ]
+  }
+]

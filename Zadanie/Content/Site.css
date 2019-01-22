@@ -46,3 +46,8 @@ textarea {
 .inline-block{
     display:inline-block;
 }
+
+myDialog {
+    border: 2px solid #000;
+}
+

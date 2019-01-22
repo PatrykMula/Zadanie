@@ -9,7 +9,7 @@ namespace Zadanie.Areas.Zadania.Controllers
 {
     public class ZadanieController : Controller
     {
-        private Dane[] taskList = new Dane[]{
+        public static List<Dane> taskList = new List<Dane>{
                             new Dane() { id= 1,
                                          temat = "temat1",
                                          czynnosc = "czynnosc1",
@@ -141,13 +141,28 @@ namespace Zadanie.Areas.Zadania.Controllers
             return PartialView(oneTask) ;
                 
         }
+
         public ActionResult Create()
         {
-            return PartialView(oneTask);
+
+
+            return PartialView();
+        }
+        [HttpPost]
+        public ActionResult Create(Dane dane)
+        {
+
+            taskList.Add(dane);
+            return Redirect("Index");
         }
         public ActionResult Edit()
         {
             return PartialView(oneTask);
+        }
+
+        public ActionResult test1()
+        {
+            return View();
         }
 
     }
