@@ -15,16 +15,17 @@
             @Html.DisplayNameFor(model => model.czynnosc)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.data_rozpoczecia)
+            @Html.ActionLink("" + @Html.DisplayNameFor(model => model.data_rozpoczecia), "Index",new { sortBy = ViewBag.SortDataRozpoczeciaParameter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.data_zakonczenia)
+            @Html.ActionLink("" + @Html.DisplayNameFor(model => model.data_zakonczenia), "Index", new { sortBy = ViewBag.SortDataZakonczeniaParameter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.status)
+            @Html.ActionLink("" + @Html.DisplayNameFor(model => model.status), "Index", new { sortBy = ViewBag.SortStatusParameter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.priorytet)
+            @Html.ActionLink( ""+ @Html.DisplayNameFor(model => model.priorytet), "Index", new { sortBy = ViewBag.SortPriorytetParameter })
+
         </th>
         <th>
             @Html.DisplayNameFor(model => model.procent_zakonczenia)

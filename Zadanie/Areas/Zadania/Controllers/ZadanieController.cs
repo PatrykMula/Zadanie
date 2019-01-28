@@ -8,7 +8,7 @@ using Zadanie.Models;
 namespace Zadanie.Areas.Zadania.Controllers
 {
     public class ZadanieController : Controller
-    {   
+    {
         //jak doczytam o obsludze Serwisów, to prawdopodobnie przerzuce do do nich i potem dodam obsluge :D
         public static List<Dane> taskList = new List<Dane>{
                             new Dane() { id= 1,
@@ -56,8 +56,9 @@ namespace Zadanie.Areas.Zadania.Controllers
                                          priorytet = 2,
                                          procent_zakonczenia = 10,
 
-                                         data_rozpoczecia = DateTime.Now,
-                                         data_zakonczenia = DateTime.Now
+                                         data_rozpoczecia = DateTime.Now.AddDays(1),
+                                         data_zakonczenia = DateTime.Now.AddDays(5)
+
                             },
                             new Dane() { id= 5,
                                          temat = "temat5",
@@ -68,8 +69,8 @@ namespace Zadanie.Areas.Zadania.Controllers
                                          priorytet = 1,
                                          procent_zakonczenia = 10,
 
-                                         data_rozpoczecia = DateTime.Now,
-                                         data_zakonczenia = DateTime.Now
+                                         data_rozpoczecia = DateTime.Now.AddDays(2),
+                                         data_zakonczenia = DateTime.Now.AddDays(2)
                             },
                             new Dane() { id= 6,
                                          temat = "temat6",
@@ -80,8 +81,8 @@ namespace Zadanie.Areas.Zadania.Controllers
                                          priorytet = 2,
                                          procent_zakonczenia = 10,
 
-                                         data_rozpoczecia = DateTime.Now,
-                                         data_zakonczenia = DateTime.Now
+                                         data_rozpoczecia = DateTime.Now.AddHours(5),
+                                         data_zakonczenia = DateTime.Now.AddDays(6)
                             },
                             new Dane() { id= 7,
                                          temat = "temat7",
@@ -93,7 +94,7 @@ namespace Zadanie.Areas.Zadania.Controllers
                                          procent_zakonczenia = 10,
 
                                          data_rozpoczecia = DateTime.Now,
-                                         data_zakonczenia = DateTime.Now
+                                         data_zakonczenia = DateTime.Now.AddDays(1)
                             },
                             new Dane() { id= 8,
                                          temat = "temat8",
@@ -128,10 +129,53 @@ namespace Zadanie.Areas.Zadania.Controllers
 
 
         // GET: Zadanie
-        public ActionResult Index()
+        public ActionResult Index(string sortBy)
         {
- //w przyszlosci te dane beda pobieranie z moq, albo z bazy danych
-            return View(taskList);
+            ViewBag.SortDataRozpoczeciaParameter = string.IsNullOrEmpty(sortBy) ? "data_rozpoczecia" : "";
+            ViewBag.SortDataRozpoczeciaParameter = sortBy == "data_rozpoczecia" ? "data_rozpoczecia desc" :"data_rozpoczecia";
+            ViewBag.SortDataZakonczeniaParameter = sortBy == "data_zakonczenia" ? "data_zakonczenia desc" :"data_zakonczenia";
+            ViewBag.SortStatusParameter = sortBy == "status" ? "status desc" :"status";
+            ViewBag.SortPriorytetParameter = sortBy == "priorytet" ? "priorytet desc" :"priorytet";
+            List<Dane> orderedList = taskList;
+            switch (sortBy)
+            {
+                case "data_rozpoczecia desc":
+                    orderedList = taskList.OrderByDescending(a => a.data_rozpoczecia).ToList();
+                    break;
+                case "data_rozpoczecia":
+                    orderedList = taskList.OrderBy(a => a.data_rozpoczecia).ToList();
+                    break;
+
+                case "data_zakonczenia desc":
+                    orderedList = taskList.OrderByDescending(a => a.data_zakonczenia).ToList();
+                    break;
+                case "data_zakonczenia":
+                    orderedList = taskList.OrderBy(a => a.data_zakonczenia).ToList();
+                    break;
+
+                case "status desc":
+                    orderedList = taskList.OrderByDescending(a => a.status).ToList();
+                    break;
+                case "status":
+                    orderedList = taskList.OrderBy(a => a.status).ToList();
+                    break;
+
+                case "priorytet desc":
+                    orderedList = taskList.OrderByDescending(a => a.priorytet).ToList();
+                    break;
+                case "priorytet":
+                    orderedList = taskList.OrderBy(a => a.priorytet).ToList();
+                    break;
+                
+
+               
+            }
+
+
+            //w przyszlosci te dane beda pobieranie z moq, albo z bazy danych
+            
+            return View(orderedList);
+
         }
         public ActionResult IndexTiles()
         {
