@@ -1,4 +1,4 @@
-$("#lnkCreate").click(function (e) {
+$("#lnkCreates").click(function (e) {
 
     e.preventDefault();
 
@@ -7,6 +7,23 @@ $("#lnkCreate").click(function (e) {
     $("#dialog-edit").dialog('open');
 
 });
+$(document).ready(function () {
+    $("#delete-links button [href]").click(function (a) {
+        a.preventDefault();
+
+        if (confirm("Na pewno chcesz usun¹æ element?")) {
+            url = $(this).attr('href');
+            window.location.href = url;
+
+        } else {
+            txt = "You pressed Cancel!";
+        }
+
+
+    });
+});
+
+
 
 $("#lnkEdit").click(function (e) {
     e.preventDefault();

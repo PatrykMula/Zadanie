@@ -69,8 +69,8 @@
             <th>
                 <button type="button">Przesuń</button>
             </th>
-            <th>
-                <button type="button">X</button>
+            <th id="delete-links">
+                <button type="button">@Html.ActionLink("X", "Delete/" + item.id, null, new { id = "lnkDelete" })</button>
             </th>
 
         </tr>

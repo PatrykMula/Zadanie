@@ -132,35 +132,35 @@ namespace Zadanie.Areas.Zadania.Controllers
         public ActionResult Index(string sortBy)
         {
             ViewBag.SortDataRozpoczeciaParameter = string.IsNullOrEmpty(sortBy) ? "data_rozpoczecia" : "";
-            ViewBag.SortDataRozpoczeciaParameter = sortBy == "data_rozpoczecia" ? "data_rozpoczecia desc" :"data_rozpoczecia";
-            ViewBag.SortDataZakonczeniaParameter = sortBy == "data_zakonczenia" ? "data_zakonczenia desc" :"data_zakonczenia";
-            ViewBag.SortStatusParameter = sortBy == "status" ? "status desc" :"status";
-            ViewBag.SortPriorytetParameter = sortBy == "priorytet" ? "priorytet desc" :"priorytet";
+            ViewBag.SortDataRozpoczeciaParameter = sortBy == "data_rozpoczecia" ? "data_rozpoczecia*" :"data_rozpoczecia";
+            ViewBag.SortDataZakonczeniaParameter = sortBy == "data_zakonczenia" ? "data_zakonczenia*" :"data_zakonczenia";
+            ViewBag.SortStatusParameter = sortBy == "status" ? "status*" :"status";
+            ViewBag.SortPriorytetParameter = sortBy == "priorytet" ? "priorytet*" :"priorytet";
             List<Dane> orderedList = taskList;
             switch (sortBy)
             {
-                case "data_rozpoczecia desc":
+                case "data_rozpoczecia*":
                     orderedList = taskList.OrderByDescending(a => a.data_rozpoczecia).ToList();
                     break;
                 case "data_rozpoczecia":
                     orderedList = taskList.OrderBy(a => a.data_rozpoczecia).ToList();
                     break;
 
-                case "data_zakonczenia desc":
+                case "data_zakonczenia*":
                     orderedList = taskList.OrderByDescending(a => a.data_zakonczenia).ToList();
                     break;
                 case "data_zakonczenia":
                     orderedList = taskList.OrderBy(a => a.data_zakonczenia).ToList();
                     break;
 
-                case "status desc":
+                case "status*":
                     orderedList = taskList.OrderByDescending(a => a.status).ToList();
                     break;
                 case "status":
                     orderedList = taskList.OrderBy(a => a.status).ToList();
                     break;
 
-                case "priorytet desc":
+                case "priorytet*":
                     orderedList = taskList.OrderByDescending(a => a.priorytet).ToList();
                     break;
                 case "priorytet":
@@ -195,6 +195,23 @@ namespace Zadanie.Areas.Zadania.Controllers
         public ActionResult Create()
         {
             return PartialView();
+        }
+
+        public ActionResult Delete(int? id)
+        {
+
+            if (taskList.Find(x =>x.id == id)!=null){
+                var itemToRemove = taskList.Single(r => r.id == id);
+
+                taskList.Remove(itemToRemove);
+
+            }
+            else
+            {
+
+            }
+            return Redirect("../Index");
+
         }
 
         [HttpPost]
