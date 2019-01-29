@@ -42,7 +42,7 @@ namespace Zadanie.Areas.Zadania.Controllers
 
                                          status = 1,
                                          priorytet = 1,
-                                         procent_zakonczenia = 10,
+                                         procent_zakonczenia = 5,
 
                                          data_rozpoczecia = DateTime.Now,
                                          data_zakonczenia = DateTime.Now
@@ -54,7 +54,7 @@ namespace Zadanie.Areas.Zadania.Controllers
 
                                          status = 1,
                                          priorytet = 2,
-                                         procent_zakonczenia = 10,
+                                         procent_zakonczenia = 5,
 
                                          data_rozpoczecia = DateTime.Now.AddDays(1),
                                          data_zakonczenia = DateTime.Now.AddDays(5)
@@ -79,7 +79,7 @@ namespace Zadanie.Areas.Zadania.Controllers
 
                                          status = 1,
                                          priorytet = 2,
-                                         procent_zakonczenia = 10,
+                                         procent_zakonczenia = 5,
 
                                          data_rozpoczecia = DateTime.Now.AddHours(5),
                                          data_zakonczenia = DateTime.Now.AddDays(6)
@@ -181,6 +181,80 @@ namespace Zadanie.Areas.Zadania.Controllers
         {
             var orderedList = taskList.OrderBy(a => a.priorytet);
             return View(orderedList);
+        }
+        [HttpPost]
+        public ActionResult IndexTiles(Dane dane)
+        {
+
+            if (dane.temat != null)
+            {
+                List<Dane> newList = taskList.FindAll(s => s.temat.Contains(dane.temat));
+                if (newList.Count < 1)
+                    return View();
+                else return View(newList);
+
+            }
+
+
+            if (dane.czynnosc != null)
+            {
+                List<Dane> newList = taskList.FindAll(s => s.czynnosc.Contains(dane.czynnosc));
+                if (newList.Count < 1)
+                    return View();
+                else return View(newList);
+
+            }
+
+
+            if (dane.data_rozpoczecia != new DateTime())
+            {
+                List<Dane> newList = taskList.FindAll(s => s.data_rozpoczecia.ToShortDateString() == dane.data_rozpoczecia.ToShortDateString());
+                if (newList.Count < 1)
+                    return View();
+                else return View(newList);
+
+            }
+            
+            
+
+            if (dane.data_zakonczenia != new DateTime())
+            {
+                List<Dane> newList = taskList.FindAll(s => s.data_zakonczenia.ToShortDateString() == dane.data_zakonczenia.ToShortDateString());
+                if (newList.Count < 1)
+                    return View();
+                else return View(newList);
+
+            }
+            
+
+
+            if (dane.priorytet != 0)
+            {
+                List<Dane> newList = taskList.FindAll(s => s.priorytet==dane.priorytet);
+                if (newList.Count < 1)
+                    return View();
+                else return View(newList);
+
+            }
+
+            if (dane.procent_zakonczenia != 0)
+            {
+                List<Dane> newList = taskList.FindAll(s => s.procent_zakonczenia == dane.procent_zakonczenia);
+                if (newList.Count < 1)
+                    return View();
+                else return View(newList);
+
+            }
+
+            if (dane.status != 0)
+            {
+                List<Dane> newList = taskList.FindAll(s => s.status==dane.status);
+                if (newList.Count < 1)
+                    return View();
+                else return View(newList);
+
+            }
+           return Redirect("IndexTiles");
         }
 
 

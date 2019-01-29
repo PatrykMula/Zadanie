@@ -2,16 +2,26 @@
 @{
     ViewBag.Title = "_BodyHeader";
 }
+@using (Html.BeginForm())
+{
+<p>
+    @Html.Editor("temat", new { htmlAttributes = new { @placeholder = "temat" } })
+    @Html.Editor("czynnosc", new { htmlAttributes = new { @placeholder = "czynnosc" } })
+    @Html.Editor("data_rozpoczecia", new { htmlAttributes = new { @type = "date", @placeholder = "data rozpoczecia" } })
+    @Html.Editor("data_zakonczenia", new { htmlAttributes = new { @type = "date", @placeholder = "data zakonczenia" } })
+    @Html.Editor("priorytet", new { htmlAttributes = new { @type = "number", @placeholder = "priorytet" } })
+    @Html.Editor("procent_zakonczenia", new { htmlAttributes = new { @type = "number", @placeholder = "%zakonczenia" } })
+    @Html.Editor("status", new { htmlAttributes = new { @type = "number", @placeholder = "status" } })
 
-<div class="text-right mb-10">
-   
-    <button type="button">@Html.ActionLink("Szukaj", "IndexTiles")</button>
+    <input type="submit" value="Szukaj" />
+</p>
+}
 
-</div>
+
 
 
 <div id="dialog-edit" title="Basic dialog" class="myDialog" style="background-color:white">
 </div>
-@Scripts.Render("~/bundles/my_scripts")
+
 
 

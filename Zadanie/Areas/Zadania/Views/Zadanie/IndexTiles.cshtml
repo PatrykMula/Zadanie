@@ -10,44 +10,51 @@
 @Html.Partial("_BodyHeaderTiles")
 @Html.Partial("_Menu")
 <div class="row">
-    @foreach (var item in Model)
+    @if (Model == null)
     {
-        @*bootstrap przy rozdzielczosci powyzej 1200px ustawia body container na 1170...
-              dlatego obecnie na sztywno jest ustawione 230px, aby miescilo sie maksymalnie 5 elementow na stronie
-            do zrobienia:
-                trzeba wywalic ten styl do jakiejs klasy
+        <b>bla bla bla</b>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            @*bootstrap przy rozdzielczosci powyzej 1200px ustawia body container na 1170...
+                  dlatego obecnie na sztywno jest ustawione 230px, aby miescilo sie maksymalnie 5 elementow na stronie
+                do zrobienia:
+                    trzeba wywalic ten styl do jakiejs klasy
 
-        *@
-        <div class="col-xs-2 mb-50" style="min-width:230px">
-            <div class="card table-bordered">
-                <div class="card-body padding-10">
-                    <div class="card-text ">
+            *@
+            <div class="col-xs-2 mb-50" style="min-width:230px">
+                <div class="card table-bordered">
+                    <div class="card-body padding-10">
+                        <div class="card-text ">
 
-                        <div class=" table-bordered blue inline-block padding-2 mb-10">@Html.DisplayFor(modelItem => item.priorytet)</div>
-                        <div class="table-bordered yellow inline-block padding-2 pull-right ">@Html.DisplayFor(modelItem => item.status)</div>
+                            <div class=" table-bordered blue inline-block padding-2 mb-10">@Html.DisplayFor(modelItem => item.priorytet)</div>
+                            <div class="table-bordered yellow inline-block padding-2 pull-right ">@Html.DisplayFor(modelItem => item.status)</div>
 
-                        <div class="text-center mb-10 ">
-                            <strong>Czynność</strong><br />
-                            @Html.DisplayFor(modelItem => item.czynnosc)
+                            <div class="text-center mb-10 ">
+                                <strong>Czynność</strong><br />
+                                @Html.DisplayFor(modelItem => item.czynnosc)
+                            </div>
+                            <div class="text-center mb-10">
+                                <strong>Temat</strong><br />
+
+                                @Html.DisplayFor(modelItem => item.temat)
+                            </div>
+                            <div class="table-bordered mb-10 inline-block padding-2">
+                                Data: @Convert.ToDateTime(item.data_rozpoczecia).ToString("dd/MM")-@Convert.ToDateTime(item.data_zakonczenia).ToString("dd/MM")
+                            </div>
+                            <div class="table-bordered inline-block padding-2 mb-10">
+                                @Html.DisplayFor(modelItem => item.procent_zakonczenia)%
+                            </div>
+
                         </div>
-                        <div class="text-center mb-10">
-                            <strong>Temat</strong><br />
-
-                            @Html.DisplayFor(modelItem => item.temat)
+                        <div class="text-center" id="details-links">
+                            @Html.ActionLink("Podglad", "Details/" + item.id, null, new { @class = "btn btn-primary" })
                         </div>
-                        <div class="table-bordered mb-10 inline-block padding-2">
-                            Data: @Convert.ToDateTime(item.data_rozpoczecia).ToString("dd/MM")-@Convert.ToDateTime(item.data_zakonczenia).ToString("dd/MM")
-                        </div>
-                        <div class="table-bordered inline-block padding-2 mb-10">
-                            @Html.DisplayFor(modelItem => item.procent_zakonczenia)%
-                        </div>
-
-                    </div>
-                    <div class="text-center">
-                        <a href="#" class="btn btn-primary ">Podgląd</a>
                     </div>
                 </div>
             </div>
-        </div>
+        }
     }
 </div>

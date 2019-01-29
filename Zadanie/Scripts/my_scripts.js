@@ -1,4 +1,4 @@
-$("#lnkCreates").click(function (e) {
+$("#lnkCreate").click(function (e) {
 
     e.preventDefault();
 
@@ -13,6 +13,7 @@ $(document).ready(function () {
 
         if (confirm("Na pewno chcesz usun¹æ element?")) {
             url = $(this).attr('href');
+
             window.location.href = url;
 
         } else {
@@ -44,7 +45,7 @@ $("#lnkEdit").click(function (e) {
 });
 
 $(document).ready(function () {
-    $("#details-links button [href]").click(function (a) {
+    $("#details-links button [href], #details-links [href]").click(function (a) {
         a.preventDefault();
 
         url = $(this).attr('href');
