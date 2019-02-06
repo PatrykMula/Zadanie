@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Zadanie.Models;
+using Rotativa;
+
+
 
 namespace Zadanie.Areas.Zadania.Controllers
 {
@@ -182,6 +185,28 @@ namespace Zadanie.Areas.Zadania.Controllers
             var orderedList = taskList.OrderBy(a => a.priorytet);
             return View(orderedList);
         }
+        /*dodawanie do pdf juz dziala, ale jeszcze trzeba dodac nowy widok,
+        do ktorego bedzie przekazywany model,
+        poniewaz wybrane rozwiazanie przerabia otrzymana strone na pdf
+        W przyszlosci można zastosować inne rozwiazanie np. RazorPDF, iTexta, albo IronPDF
+        fajnym rozwiazaniem wydaje sie byc kendo UI, ale jest drogi :D*/
+        /*trzeba jeszcze dodac:
+         * zapytanie, czy na pewno zapisac
+         * dodac pytanie o nazwe
+         * ewentualnie gdzie zapisac*/
+        public ActionResult SaveAsPdf()
+        {
+            {
+                var model = TempData["FullModel"];
+                //Code to get content
+                return new Rotativa.ViewAsPdf("Index", model) { FileName = "TestViewAsPdf.pdf" };
+            }
+
+
+        }
+
+
+
         [HttpPost]
         public ActionResult IndexTiles(Dane dane)
         {

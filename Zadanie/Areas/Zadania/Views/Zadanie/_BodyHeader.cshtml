@@ -10,12 +10,22 @@
 
 
     <button type="button">@Html.ActionLink("Edycja", "Edit", null, new { id = "lnkEdit" })</button>
+    <button type="button">@Html.ActionLink("Eksportuj Do PDF", "SaveAsPdf", null, new { id = "savePage" })</button>
 
 </div>
 
 
 <div id="dialog-edit" title="Basic dialog" class="myDialog" style="background-color:white">
 </div>
-
+<script>
+    $(document).ready(function () {
+        $("$savePage"}.click(function (a) {
+            a.preventDefault();
+            url = $(this).attr('href');
+            load(url);
+        @{  TempData["FullModel"] = Model;}
+        }
+        )});
+</script>
 
 
