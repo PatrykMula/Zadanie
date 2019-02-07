@@ -5,16 +5,23 @@
 @*  drop down wyskakuje jako absolute do diva... poszukaj, aby absolute wyskakiwal do polozenia elementu button *@
 <div class="dropdown text-right">
     Elementów na stronie:
-    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-        10
+    <button type="button" class="dropdown-toggle" data-toggle="dropdown">
+        @(ViewBag.CurrentPageCount??10)
     </button>
     <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">10</a>
+        <li> @Html.ActionLink("10", "Index",new { pageCount = 10 }, null)</li>
+        <li>@Html.ActionLink("20", "Index",new { pageCount = 20 }, null)</li>
+        <li> @Html.ActionLink("30", "Index", new { pageCount = 30 }, null)</li>
+        <li> @Html.ActionLink("40", "Index", new { pageCount = 40 }, null)</li>
+        <li> @Html.ActionLink("50", "Index", new { pageCount = 50 }, null)</li>
+
+
     </div>
 </div>
+
 <div class="text-center">
     @Html.PagedListPager(Model,page=>Url.Action("Index",
-        new { page,sortBy=ViewBag.CurrentSort}),
+        new { page,sortBy=ViewBag.CurrentSort,pageCount = ViewBag.CurrentPageCount}),
         new PagedListRenderOptions {LinkToPreviousPageFormat = "Poprzednia",
             LinkToNextPageFormat = "Następna",
             DisplayLinkToPreviousPage = PagedListDisplayMode.Always,

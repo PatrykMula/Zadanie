@@ -486,9 +486,11 @@ namespace Zadanie.Areas.Zadania.Controllers
 
 //****************************************************************************************************************************************************************************************************************************
         // GET: Zadanie
-        public ActionResult Index(string sortBy,int? page)
+        public ActionResult Index(string sortBy,int? page,int? pageCount)
         {
             ViewBag.CurrentSort = sortBy;
+            ViewBag.CurrentPageCount = pageCount;
+
             ViewBag.SortDataRozpoczeciaParameter = string.IsNullOrEmpty(sortBy) ? "data_rozpoczecia" : "";
             ViewBag.SortDataRozpoczeciaParameter = sortBy == "data_rozpoczecia" ? "data_rozpoczecia*" :"data_rozpoczecia";
             ViewBag.SortDataZakonczeniaParameter = sortBy == "data_zakonczenia" ? "data_zakonczenia*" :"data_zakonczenia";
@@ -528,7 +530,7 @@ namespace Zadanie.Areas.Zadania.Controllers
 
                
             }
-            int pageSize = 10;
+            int pageSize = (pageCount ?? 10);
             int pageNumber = (page ?? 1);
             return View(orderedList.ToPagedList(pageNumber,pageSize));
 
