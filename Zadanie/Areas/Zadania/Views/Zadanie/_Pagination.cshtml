@@ -1,4 +1,8 @@
-﻿@*  drop down wyskakuje jako absolute do diva... poszukaj, aby absolute wyskakiwal do polozenia elementu button *@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<Zadanie.Models.Dane>
+
+@*  drop down wyskakuje jako absolute do diva... poszukaj, aby absolute wyskakiwal do polozenia elementu button *@
 <div class="dropdown text-right">
     Elementów na stronie:
     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -9,10 +13,14 @@
     </div>
 </div>
 <div class="text-center">
-    <ul class="pagination justify-content-center">
-        <li class="page-item"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="javascript:void(0);">1</a></li>
-        <li class="page-item"><a class="page-link" href="javascript:void(0);">2</a></li>
-        <li class="page-item"><a class="page-link" href="javascript:void(0);">Next</a></li>
-    </ul>
+    @Html.PagedListPager(Model,page=>Url.Action("Index",
+        new { page,sortBy=ViewBag.CurrentSort}),
+        new PagedListRenderOptions {LinkToPreviousPageFormat = "Poprzednia",
+            LinkToNextPageFormat = "Następna",
+            DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+            DisplayLinkToNextPage = PagedListDisplayMode.Always
+        })
 </div>
+@*  //przyklad uzycia, jakbym potrzebowal ustawiac, ze ma byc max np. 5 stron na widok
+    @Html.PagedListPager(Model.video, page => Url.Action("video_play", new { page = page }), new PagedListRenderOptions { LinkToFirstPageFormat = "<< Next", LinkToPreviousPageFormat = "<", LinkToNextPageFormat = ">", LinkToLastPageFormat = "Last >>" }, PagedListRenderOptions.OnlyShowFivePagesAtATime)
+*@

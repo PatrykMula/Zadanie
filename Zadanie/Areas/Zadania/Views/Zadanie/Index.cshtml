@@ -1,34 +1,37 @@
-﻿@model IEnumerable<Zadanie.Models.Dane>
+﻿@model IPagedList<Zadanie.Models.Dane>
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Zadania/Views/Shared/_Zadanie.cshtml";
 }
+@using PagedList;
+@using PagedList.Mvc;
 <h2 class="text-center">To Do - lista zadań</h2>
 @Html.Partial("_BodyHeader")
 @Html.Partial("_Menu")
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.temat)
+            @Html.DisplayNameFor(model => model.First().temat)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.czynnosc)
+            @Html.DisplayNameFor(model => model.First().czynnosc)
         </th>
         <th>
-            @Html.ActionLink("" + @Html.DisplayNameFor(model => model.data_rozpoczecia), "Index",new { sortBy = ViewBag.SortDataRozpoczeciaParameter })
+            @Html.ActionLink("" + @Html.DisplayNameFor(model => model.First().data_rozpoczecia), "Index", new { sortBy = ViewBag.SortDataRozpoczeciaParameter })
         </th>
         <th>
-            @Html.ActionLink("" + @Html.DisplayNameFor(model => model.data_zakonczenia), "Index", new { sortBy = ViewBag.SortDataZakonczeniaParameter })
+            @Html.ActionLink("" + @Html.DisplayNameFor(model => model.First().data_zakonczenia), "Index", new { sortBy = ViewBag.SortDataZakonczeniaParameter })
         </th>
         <th>
-            @Html.ActionLink("" + @Html.DisplayNameFor(model => model.status), "Index", new { sortBy = ViewBag.SortStatusParameter })
+            @Html.ActionLink("" + @Html.DisplayNameFor(model => model.First().status), "Index", new { sortBy = ViewBag.SortStatusParameter })
         </th>
         <th>
-            @Html.ActionLink( ""+ @Html.DisplayNameFor(model => model.priorytet), "Index", new { sortBy = ViewBag.SortPriorytetParameter })
+            @Html.ActionLink("" + @Html.DisplayNameFor(model => model.First().priorytet), "Index", new { sortBy = ViewBag.SortPriorytetParameter })
 
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.procent_zakonczenia)
+            @Html.DisplayNameFor(model => model.First().procent_zakonczenia)
         </th>
         <th></th>
     </tr>
@@ -58,12 +61,12 @@
             </th>
             <th>
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="checkbox_for_edit" value="@item.id" >
+                    <input type="checkbox" class="form-check-input" name="checkbox_for_edit" value="@item.id">
                     <label class="form-check-label" for="checkbox_for_edit">Checkbox</label>
                 </div>
             </th>
             <th id="details-links">
-                <button type="button">@Html.ActionLink("Szczegóły", "Details/" + item.id, null, new {  })</button>
+                <button type="button">@Html.ActionLink("Szczegóły", "Details/" + item.id, null, new { })</button>
 
             </th>
             <th>
@@ -78,3 +81,4 @@
 
 </table>
 
+@Html.Partial("_Pagination")
