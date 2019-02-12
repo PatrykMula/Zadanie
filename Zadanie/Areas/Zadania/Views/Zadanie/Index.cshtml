@@ -1,5 +1,6 @@
 ﻿@model IPagedList<Zadanie.Models.Dane>
 
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Zadania/Views/Shared/_Zadanie.cshtml";
@@ -9,7 +10,7 @@
 <h2 class="text-center">To Do - lista zadań</h2>
 @Html.Partial("_BodyHeader")
 @Html.Partial("_Menu")
-<table class="table">
+<table id="sortable" class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.First().temat)
@@ -45,10 +46,11 @@
                 @Html.DisplayFor(modelItem => item.czynnosc)
             </th>
             <th>
-                @Html.DisplayFor(modelItem => item.data_rozpoczecia)
+                @String.Format("{0:dd MM yyyy}", item.data_rozpoczecia)
+               
             </th>
             <th>
-                @Html.DisplayFor(modelItem => item.data_zakonczenia)
+                @String.Format("{0:dd MM yyyy}", item.data_zakonczenia)
             </th>
             <th>
                 @Html.DisplayFor(modelItem => item.status)
@@ -70,7 +72,7 @@
 
             </th>
             <th>
-                <button type="button">Przesuń</button>
+                <span><button type="button" class="handler1">Przesuń</button></span>
             </th>
             <th id="delete-links">
                 <button type="button">@Html.ActionLink("X", "Delete/" + item.id, null, new { id = "lnkDelete" })</button>
@@ -80,5 +82,16 @@
     }
 
 </table>
+<script>
+
+    $(document).ready(function () {
+        $("#sortable tbody").sortable({
+            handle: 'button.handler1',
+            cancel: '',
+            placeholder: "ui-state-highlight"
+        });
+        $("#sortable tbody").disableSelection();
+    });
+</script>
 
 @Html.Partial("_Pagination")

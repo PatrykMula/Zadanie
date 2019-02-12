@@ -3,7 +3,7 @@
 @model IPagedList<Zadanie.Models.Dane>
 
 @*  drop down wyskakuje jako absolute do diva... poszukaj, aby absolute wyskakiwal do polozenia elementu button *@
-<div class="dropdown text-right">
+<div class="dropdown pull-right  col-sm-3">
     Elementów na stronie:
     <button type="button" class="dropdown-toggle" data-toggle="dropdown">
         @(ViewBag.CurrentPageCount??10)

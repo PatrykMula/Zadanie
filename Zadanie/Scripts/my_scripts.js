@@ -7,6 +7,9 @@ $("#lnkCreate").click(function (e) {
     $("#dialog-edit").dialog('open');
 
 });
+
+
+
 $(document).ready(function () {
     $("#delete-links button [href]").click(function (a) {
         a.preventDefault();
@@ -83,3 +86,7 @@ $("#dialog-edit").dialog({
     }
 
 });
+
+
+
+

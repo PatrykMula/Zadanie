@@ -491,7 +491,7 @@ namespace Zadanie.Areas.Zadania.Controllers
             ViewBag.CurrentSort = sortBy;
             ViewBag.CurrentPageCount = pageCount;
 
-            ViewBag.SortDataRozpoczeciaParameter = string.IsNullOrEmpty(sortBy) ? "data_rozpoczecia" : "";
+            ViewBag.SortNazwa = string.IsNullOrEmpty(sortBy) ? "id" : "";
             ViewBag.SortDataRozpoczeciaParameter = sortBy == "data_rozpoczecia" ? "data_rozpoczecia*" :"data_rozpoczecia";
             ViewBag.SortDataZakonczeniaParameter = sortBy == "data_zakonczenia" ? "data_zakonczenia*" :"data_zakonczenia";
             ViewBag.SortStatusParameter = sortBy == "status" ? "status*" :"status";
@@ -499,6 +499,9 @@ namespace Zadanie.Areas.Zadania.Controllers
             List<Dane> orderedList = taskList;
             switch (sortBy)
             {
+                case "id":
+                    orderedList = taskList.OrderBy(a => a.id).ToList();
+                    break;
                 case "data_rozpoczecia*":
                     orderedList = taskList.OrderByDescending(a => a.data_rozpoczecia).ToList();
                     break;
@@ -645,7 +648,7 @@ namespace Zadanie.Areas.Zadania.Controllers
 
 
 
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
             //znajdz zadanie o okreslonym id
             Dane task = taskList.Find(x => x.id==id);
@@ -669,10 +672,38 @@ namespace Zadanie.Areas.Zadania.Controllers
         }
 
 
+        public ActionResult Edit(int id)
+        {
+            //znajdz zadanie o okreslonym id
+            Dane task = taskList.Find(x => x.id == id);
+            return PartialView(task);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Dane dane)
+        {
+            if (dane.id == 0)
+            {
+                int id = (taskList.Count + 1);//dodanie jako kolejny element 
+                dane.id = id;
+                taskList.Add(dane);
+                return Redirect("Index");
+            }
+            else
+            {
+                var index = taskList.FindIndex(c => c.id == dane.id);
+                taskList[index] = dane;
+                return Redirect("../Index");
+            }
+
+        }
+
+
         public ActionResult Delete(int id)
         {
 
-            if (taskList.Find(x =>x.id == id)!=null){
+            if (taskList.Find(x => x.id == id) != null)
+            {
                 var itemToRemove = taskList.Single(r => r.id == id);
 
                 taskList.Remove(itemToRemove);
@@ -684,23 +715,6 @@ namespace Zadanie.Areas.Zadania.Controllers
             }
             return Redirect("../Index");
 
-        }
-
-
-        public ActionResult Edit(int id)
-        {
-            //znajdz zadanie o okreslonym id
-            Dane task = taskList.Find(x => x.id == id);
-            return PartialView(task);
-        }
-
-        [HttpPost]
-        public ActionResult Edit(Dane dane)
-        {
-
-            var index = taskList.FindIndex(c => c.id == dane.id);
-            taskList[index] = dane;
-            return Redirect("../Index");
         }
 
 
