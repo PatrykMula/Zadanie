@@ -15,7 +15,8 @@ namespace Zadanie.Areas.Zadania.Controllers
     public class ZadanieController : Controller
     {
         //jak doczytam o obsludze Serwisów, to prawdopodobnie przerzuce do do nich i potem dodam obsluge :D
-        public static List<Dane> taskList = new List<Dane>{
+        
+public static List<Dane> taskList = new List<Dane>{
                             new Dane() { id= 1,
                                          temat = "temat1",
                                          czynnosc = "czynnosc1",
@@ -308,6 +309,18 @@ namespace Zadanie.Areas.Zadania.Controllers
                             new Dane() { id= 25,
                                          temat = "temat25",
                                          czynnosc = "czynnosc25",
+                                         opis = "jakis tam opis",
+
+                                         status = 1,
+                                         priorytet = 2,
+                                         procent_zakonczenia = 10,
+
+                                         data_rozpoczecia = DateTime.Now,
+                                         data_zakonczenia = DateTime.Now.AddDays(1)
+                            },
+                            new Dane() { id= 26,
+                                         temat = "temat26",
+                                         czynnosc = "czynnosc26",
                                          opis = "jakis tam opis",
 
                                          status = 1,
@@ -661,30 +674,28 @@ namespace Zadanie.Areas.Zadania.Controllers
             return PartialView();
         }
 
-
-        [HttpPost]
-        public ActionResult Create(Dane dane)
-        {
-            int id = (taskList.Count + 1);//dodanie jako kolejny element 
-            dane.id = id;
-            taskList.Add(dane);
-            return Redirect("Index");
-        }
-
-
         public ActionResult Edit(int id)
         {
             //znajdz zadanie o okreslonym id
             Dane task = taskList.Find(x => x.id == id);
-            return PartialView(task);
+            return View(task);
         }
 
         [HttpPost]
-        public ActionResult Edit(Dane dane)
+        public ActionResult Save(Dane dane)
         {
+            //jezeli jakims cudem uda sie wprowadzic zle dane, to zostanie przekierowany do Index
+            if (!ModelState.IsValid)
+            {   if (dane.id == 0)
+                    return Redirect("Index");
+                else
+                    return Redirect("Index");
+            }
+            //gdy id == 0, to jest otrzymywany z create, jezeli jest rozny od 0, to z edita
             if (dane.id == 0)
             {
-                int id = (taskList.Count + 1);//dodanie jako kolejny element 
+                //dodanie jako kolejny element 
+                int id = (taskList.Count + 1);
                 dane.id = id;
                 taskList.Add(dane);
                 return Redirect("Index");
@@ -692,8 +703,18 @@ namespace Zadanie.Areas.Zadania.Controllers
             else
             {
                 var index = taskList.FindIndex(c => c.id == dane.id);
-                taskList[index] = dane;
-                return Redirect("../Index");
+                //sprawdzamy, czy element o podanym id istnieje w naszej liscie
+                if (index >= 0)
+                {
+                    taskList[index] = dane;
+                    return Redirect("Index");
+                }
+                else
+         
+                {
+                    return Redirect("Index");
+                }
+
             }
 
         }

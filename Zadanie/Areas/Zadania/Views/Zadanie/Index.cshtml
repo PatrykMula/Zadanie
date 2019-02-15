@@ -13,6 +13,9 @@
 <table id="sortable" class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.First().id)
+        </th>    
+        <th>
             @Html.DisplayNameFor(model => model.First().temat)
         </th>
         <th>
@@ -39,6 +42,9 @@
     @foreach (var item in Model)
     {
         <tr>
+            <th>
+                @Html.DisplayFor(modelItem => item.id)
+            </th>  
             <th>
                 @Html.DisplayFor(modelItem => item.temat)
             </th>

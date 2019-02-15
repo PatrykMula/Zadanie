@@ -1,13 +1,14 @@
 ﻿@model Zadanie.Models.Dane
 
 <h2>Dodaj</h2>
-@using (Html.BeginForm("Edit","Zadanie")) 
+@using (Html.BeginForm("Save", "Zadanie"))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
         <div class="form-group">
             @Html.LabelFor(model => model.temat, htmlAttributes: new { @class = "control-label col-md-4" })
             <div class="col-md-8">
@@ -79,4 +80,6 @@
         </div>
     </div>
 }
+
+@Scripts.Render("~/bundles/jqueryval")
 
