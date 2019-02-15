@@ -7,8 +7,8 @@ using Zadanie.Models;
 using Rotativa;
 using PagedList;
 using PagedList.Mvc;
-
-
+using OfficeOpenXml;
+using System.IO;
 
 namespace Zadanie.Areas.Zadania.Controllers
 {
@@ -686,9 +686,7 @@ public static List<Dane> taskList = new List<Dane>{
         {
             //jezeli jakims cudem uda sie wprowadzic zle dane, to zostanie przekierowany do Index
             if (!ModelState.IsValid)
-            {   if (dane.id == 0)
-                    return Redirect("Index");
-                else
+            {   
                     return Redirect("Index");
             }
             //gdy id == 0, to jest otrzymywany z create, jezeli jest rozny od 0, to z edita
@@ -738,7 +736,50 @@ public static List<Dane> taskList = new List<Dane>{
 
         }
 
+        public ActionResult SaveAsExcel()
+        {
 
+            IPagedList<Dane> model = (IPagedList<Dane>)TempData["FullModel"];
+
+            ExcelPackage pck = new ExcelPackage();
+            ExcelWorksheet ws = pck.Workbook.Worksheets.Add("excel");
+            
+            ws.Cells["A1"].Value = "Czynnosc";
+            ws.Cells["B1"].Value = "Temat";
+            ws.Cells["C1"].Value = "Data Rozpoczęcia";
+            ws.Cells["D1"].Value = "Data Zakończenia";
+            ws.Cells["E1"].Value = "Status";
+            ws.Cells["F1"].Value = "Priorytet";
+            ws.Cells["G1"].Value = "Procent zakończenia";
+            int rowStart = 2;
+            foreach (var item in model)
+            {
+                ws.Cells[string.Format("A{0}", rowStart)].Value = item.czynnosc;
+                ws.Cells[string.Format("B{0}", rowStart)].Value = item.temat;
+                ws.Cells[string.Format("C{0}", rowStart)].Style.Numberformat.Format = "dd-MM-yyyy";
+                ws.Cells[string.Format("C{0}", rowStart)].Value = item.data_rozpoczecia;
+                ws.Cells[string.Format("D{0}", rowStart)].Style.Numberformat.Format = "dd-MM-yyyy";
+                ws.Cells[string.Format("D{0}", rowStart)].Value = item.data_zakonczenia;
+                ws.Cells[string.Format("E{0}", rowStart)].Value = item.status;
+                ws.Cells[string.Format("F{0}", rowStart)].Value = item.priorytet;
+                ws.Cells[string.Format("G{0}", rowStart)].Value = item.procent_zakonczenia;
+                rowStart++;
+            }
+            ws.Cells[ws.Dimension.Address].AutoFitColumns();
+            string excelName = "ToDo";
+
+            using (var memoryStream = new MemoryStream())
+            {
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", "attachment; filename=" + excelName + ".xlsx");
+                pck.SaveAs(memoryStream);
+                memoryStream.WriteTo(Response.OutputStream);
+                Response.Flush();
+                Response.End();
+
+                return Redirect("index");
+            }
+        }
 
         public ActionResult test1()
         {

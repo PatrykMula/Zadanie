@@ -11,6 +11,7 @@
 
     <button type="button">@Html.ActionLink("Edycja", "Edit", null, new { id = "lnkEdit" })</button>
     <button type="button">@Html.ActionLink("Eksportuj Do PDF", "SaveAsPdf", null, new { id = "savePage" })</button>
+    <button type="button">@Html.ActionLink("Eksportuj Do Excela", "SaveAsExcel", null, new { id = "savePageExcel" })</button>
 
 </div>
 
@@ -25,7 +26,18 @@
             load(url);
         @{  TempData["FullModel"] = Model;}
         }
-        )});
+    )});
+
+        $(document).ready(function () {
+        $("$savePageExcel"}.click(function (a) {
+            a.preventDefault();
+            url = $(this).attr('href');
+            load(url);
+        @{  TempData["FullModel"] = Model;}
+        }
+    )});
+
+
 </script>
 
 
